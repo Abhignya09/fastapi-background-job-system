@@ -1,0 +1,90 @@
+{
+  "info": {
+    "_postman_id": "797bd622-6f3a-4d9f-922a-5f8455a51ba0",
+    "name": "FASTAPI job system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39233549"
+  },
+  "item": [
+    {
+      "name": "Submit job",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/jobs/submit",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "jobs",
+            "submit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get job",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/jobs/status/5ac43ef3-f0a4-42a6-94f3-70d4091fde66",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "jobs",
+            "status",
+            "5ac43ef3-f0a4-42a6-94f3-70d4091fde66"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid job",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/jobs/status/123456789",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "jobs",
+            "status",
+            "123456789"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

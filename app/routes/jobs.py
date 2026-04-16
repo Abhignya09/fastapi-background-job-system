@@ -31,7 +31,7 @@ def process_job(job_id: str):
         db.commit()
 
         # Simulate work
-        time.sleep(16)
+        time.sleep(10)
 
         # Step 2: completed
         job.status = "completed"
@@ -47,20 +47,36 @@ def process_job(job_id: str):
         db.close()
 
 # 🔹 Submit Job
-@router.post("/submit")
+@router.post(
+    "/submit",
+    summary="Submit a new job",
+    description="Creates a new job and processes it asynchronously in the background.",
+    response_description="Returns the created job ID"
+)
 def submit_job(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     job_id = str(uuid.uuid4())
-
-    new_job = Job(id=job_id, status="pending")
-    db.add(new_job)
+    job = Job(id=job_id, status="pending")
+    db.add(job)
+    time.sleep(3)
     db.commit()
 
     background_tasks.add_task(process_job, job_id)
 
-    return {"job_id": job_id}
+    return {
+        "message": "Job submitted successfully",
+        "job_id": job_id
+    }
 
 # 🔹 Get Job Status
-@router.get("/status/{job_id}")
+@router.get(
+    "/status/{job_id}",
+    summary="Get job status",
+    description="Returns current status and result of a job.",
+    responses={
+        200: {"description": "Job found"},
+        404: {"description": "Job not found"}
+    }
+)
 def get_status(job_id: str, db: Session = Depends(get_db)):
     job = db.query(Job).filter(Job.id == job_id).first()
 
@@ -68,6 +84,9 @@ def get_status(job_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Job not found")
 
     return {
+        "job_id": job_id,
         "status": job.status,
         "result": job.result
     }
+
+
