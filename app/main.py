@@ -11,7 +11,7 @@ A simple backend system that handles asynchronous job processing.
 
 Features:
 - Submit background jobs
-- Track job status (pending → in_progress → completed)
+- Track job status (pending → in_progress → completed/failed)
 - Simulated processing delay
 - Error handling for invalid jobs
 """,
